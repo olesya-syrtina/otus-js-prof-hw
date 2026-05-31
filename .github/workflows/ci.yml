@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    paths:
+      - 'hw-04/**'
+  pull_request:
+    paths:
+      - 'hw-04/**'
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: hw-04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run build
